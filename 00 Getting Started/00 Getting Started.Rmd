@@ -1,18 +1,45 @@
 ---
-title: "R Notebook"
+title: "Data Analysis for the Life Sciences - Getting Started"
 output: html_notebook
 ---
 
-This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+Let's blast through the introduction and getting started segment. I imagine it's a good thing to do these anyway since I often forget what I did last time. 
 
-Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
-
+## Getting Help
 ```{r}
-plot(cars)
+?install.packages
+help("install.packages")
 ```
 
-Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+## Installing packages
+````{r}
+install.packages("rafalib")
+install.packages("downloader")
+````
 
-When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+## Importing Data into R
+The book mentions using CSV files and whatnot. I spent a good deal of time making a postgres database and we're gonna use that. 
+````{r}
+#The requisit packages are:
+install.packages("RPostgreSQL", "RPostgres")
+library(DBI)
+library(sqldf)
+library(RSQLite)
 
-The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+#The setup for variables for a postgres connection look like:
+usr <- "ruser"
+psw <- {"RassWord!"}
+drv <- RPostgres::Postgres()
+hst <- "localhost"
+prt <- 5432
+dbn <- "project10"	
+
+#Connecting/establishing a connection to the DB looks like
+project12 <- dbConnect(drv, dbname = dbn, host = hst, port = prt, user = usr, password = psw)
+
+#issuing a db SQL querry looks like:
+numberofrowsQuery <- dbGetQuery(project12, "SELECT COUNT(VAERS_ID) from vaers;")
+
+#some built in commands
+dbListTables(project12) 
+````
