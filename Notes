@@ -1,0 +1,7 @@
+normal workflow:
+git diff         # see any changes you've made
+git status       # see any files you've made changes to, any files not yet added to the project, and general state of things
+git add <file>   # add a file (either the first time, or after making changes to it)
+git commit       # actually record changes to your local repo from files you've done "git add" on
+git pull         # update your local repo with any remote changes
+git push         # push your changes up to github 
