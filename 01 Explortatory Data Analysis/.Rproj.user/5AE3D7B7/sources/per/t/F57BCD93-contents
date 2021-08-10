@@ -1,0 +1,24 @@
+---
+title: "Explortatory Data Analysis"
+output: html_notebook
+---
+
+Biases, systematic errors and unexpected variability are common in data from the life sciences.
+Failure to discover these problems often leads to flawed analyses and false discoveries.
+
+Graphing data is a powerful approach to detecting these problems. We refer to this as exploratory
+data analysis (EDA). Many important methodological contributions to existing techniques in data
+analysis were initiated by discoveries made via EDA. In addition, EDA can lead to interesting
+biological discoveries which would otherwise be missed through simply subjecting the data to a
+battery of hypothesis tests. Through this book, we make use of exploratory plots to motivate the
+analyses we choose. Here we present a general introduction to EDA using height data.
+
+```{r}
+plot(cars)
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
