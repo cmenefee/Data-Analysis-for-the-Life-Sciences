@@ -1834,9 +1834,10 @@ help(&quot;install.packages&quot;)</code></pre>
 <h2>Installing packages</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcInJhZmFsaWJcIilcbmluc3RhbGwucGFja2FnZXMoXCJkb3dubG9hZGVyXCIpXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcInJhZmFsaWJcIilcbmluc3RhbGwucGFja2FnZXMoXCJkb3dubG9hZGVyXCIpXHRcdCN0aGUgZG93bmxvYWQuZmlsZSBmdW5jdGlvblxuaW5zdGFsbC5wYWNrYWdlcyhcImRldnRvb2xzXCIpXHRcdCNUbyBpbnN0YWxsIHBhY2thZ2VzIGZyb20gR2l0SHViXG5gYGAifQ== -->
 <pre class="r"><code>install.packages(&quot;rafalib&quot;)
-install.packages(&quot;downloader&quot;)</code></pre>
+install.packages(&quot;downloader&quot;)      #the download.file function
+install.packages(&quot;devtools&quot;)        #To install packages from GitHub</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -1871,9 +1872,57 @@ numberofrowsQuery &lt;- dbGetQuery(project12, &quot;SELECT COUNT(VAERS_ID) from 
 dbListTables(project12) </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="download-data-from-within-r" class="section level2">
+<h2>Download data from within R</h2>
+<p>The book stores many of the datasets used on GitHub20. Using the download.file function in the downloader package to download the file to a specific location and then read it in.</p>
+<p>TODO, imagine turning this into a function to download data files and then churn them into the DB? How cool would that be.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShkb3dubG9hZGVyKSAjI3VzZSBpbnN0YWxsLnBhY2thZ2VzIHRvIGluc3RhbGxcbnVybCA8LSBcImh0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9nZW5vbWljc2NsYXNzL2RhZ2RhdGEvbWFzdGVyL2luc3QvZXh0ZFxcYXRhL2ZlbWFsZU1pY2VXZWlnaHRzLmNzdlwiXG5maWxlbmFtZSA8LSBcImZlbWFsZU1pY2VXZWlnaHRzLmNzdlwiXG5kb3dubG9hZCh1cmwsIGRlc3RmaWxlPWZpbGVuYW1lKVxuXG4jV2UgY2FuIHRoZW4gcmVhZCBpdCBpbiBsaWtlIHRoaXM6XG5kYXQgPC0gcmVhZC5jc3YoZmlsZW5hbWUpXG4gXG5gYGAifQ== -->
+<pre class="r"><code>library(downloader) ##use install.packages to install
+url &lt;- &quot;https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extd\ata/femaleMiceWeights.csv&quot;
+filename &lt;- &quot;femaleMiceWeights.csv&quot;
+download(url, destfile=filename)
+
+#We can then read it in like this:
+dat &lt;- read.csv(filename)
+ </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Install a package from GitHub.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuaW5zdGFsbC5wYWNrYWdlcyhcImRldnRvb2xzXCIpXHRcdCNUbyBpbnN0YWxsIHBhY2thZ2VzIGZyb20gR2l0SHViXG5pbnN0YWxsX2dpdGh1YihcImdlbm9taWNzY2xhc3MvZGFnZGF0YVwiKVxubGlicmFyeShkZXZ0b29scylcblxuIyBPbmNlIHlvdSBpbnN0YWxsIHRoZSBwYWNrYWdlLCB0aGUgZmlsZSBpcyBvbiB5b3VyIGNvbXB1dGVyLiBIb3dldmVyLCBmaW5kaW5nIGl0IHJlcXVpcmVzIGFkdmFuY2VkIGtub3dsZWRnZTpcblxuZGlyIDwtIHN5c3RlbS5maWxlKHBhY2thZ2U9XCJkYWdkYXRhXCIpICNleHRyYWN0cyB0aGUgbG9jYXRpb24gb2YgYSBwYWNrYWdlXG5saXN0LmZpbGVzKGRpcilcblxubGlzdC5maWxlcyhmaWxlLnBhdGgoZGlyLFwiZXh0ZGF0YVwiKSkgI2xpc3QgZmlsZXMgaW4gYSBkaXJlY3RvcnlcblxuI3JlYWQgaW4gdGhlIGZpbGVcbmZpbGVuYW1lIDwtIGZpbGUucGF0aChkaXIsXCJleHRkYXRhL2ZlbWFsZU1pY2VXZWlnaHRzLmNzdlwiKVxuZGF0IDwtIHJlYWQuY3N2KGZpbGVuYW1lKSBcbmBgYCJ9 -->
+<pre class="r"><code>install.packages(&quot;devtools&quot;)        #To install packages from GitHub
+install_github(&quot;genomicsclass/dagdata&quot;)
+library(devtools)
+
+# Once you install the package, the file is on your computer. However, finding it requires advanced knowledge:
+
+dir &lt;- system.file(package=&quot;dagdata&quot;) #extracts the location of a package
+list.files(dir)
+
+list.files(file.path(dir,&quot;extdata&quot;)) #list files in a directory
+
+#read in the file
+filename &lt;- file.path(dir,&quot;extdata/femaleMiceWeights.csv&quot;)
+dat &lt;- read.csv(filename) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="notes" class="section level2">
+<h2>Notes</h2>
+<p>Are there any worthy notes or anything we want to keep around?</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBBbmFseXNpcyBmb3IgdGhlIExpZmUgU2NpZW5jZXMgLSBHZXR0aW5nIFN0YXJ0ZWQiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCkxldCdzIGJsYXN0IHRocm91Z2ggdGhlIGludHJvZHVjdGlvbiBhbmQgZ2V0dGluZyBzdGFydGVkIHNlZ21lbnQuIEkgaW1hZ2luZSBpdCdzIGEgZ29vZCB0aGluZyB0byBkbyB0aGVzZSBhbnl3YXkgc2luY2UgSSBvZnRlbiBmb3JnZXQgd2hhdCBJIGRpZCBsYXN0IHRpbWUuIAoKIyMgR2V0dGluZyBIZWxwCmBgYHtyfQo/aW5zdGFsbC5wYWNrYWdlcwpoZWxwKCJpbnN0YWxsLnBhY2thZ2VzIikKYGBgCgojIyBJbnN0YWxsaW5nIHBhY2thZ2VzCmBgYGB7cn0KaW5zdGFsbC5wYWNrYWdlcygicmFmYWxpYiIpCmluc3RhbGwucGFja2FnZXMoImRvd25sb2FkZXIiKQpgYGBgCgojIyBJbXBvcnRpbmcgRGF0YSBpbnRvIFIKVGhlIGJvb2sgbWVudGlvbnMgdXNpbmcgQ1NWIGZpbGVzIGFuZCB3aGF0bm90LiBJIHNwZW50IGEgZ29vZCBkZWFsIG9mIHRpbWUgbWFraW5nIGEgcG9zdGdyZXMgZGF0YWJhc2UgYW5kIHdlJ3JlIGdvbm5hIHVzZSB0aGF0LiAKYGBgYHtyfQojVGhlIHJlcXVpc2l0ZSBwYWNrYWdlcyBhcmU6Cmluc3RhbGwucGFja2FnZXMoIlJQb3N0Z3JlU1FMIiwgIlJQb3N0Z3JlcyIpCmxpYnJhcnkoREJJKQpsaWJyYXJ5KHNxbGRmKQpsaWJyYXJ5KFJTUUxpdGUpCgojVGhlIHNldHVwIGZvciB2YXJpYWJsZXMgZm9yIGEgcG9zdGdyZXMgY29ubmVjdGlvbiBsb29rIGxpa2U6CnVzciA8LSAicnVzZXIiCnBzdyA8LSB7IlJhc3NXb3JkISJ9CmRydiA8LSBSUG9zdGdyZXM6OlBvc3RncmVzKCkKaHN0IDwtICJsb2NhbGhvc3QiCnBydCA8LSA1NDMyCmRibiA8LSAicHJvamVjdDEwIgkKCiNDb25uZWN0aW5nL2VzdGFibGlzaGluZyBhIGNvbm5lY3Rpb24gdG8gdGhlIERCIGxvb2tzIGxpa2UKcHJvamVjdDEyIDwtIGRiQ29ubmVjdChkcnYsIGRibmFtZSA9IGRibiwgaG9zdCA9IGhzdCwgcG9ydCA9IHBydCwgdXNlciA9IHVzciwgcGFzc3dvcmQgPSBwc3cpCgojaXNzdWluZyBhIGRiIFNRTCBxdWVycnkgbG9va3MgbGlrZToKbnVtYmVyb2Zyb3dzUXVlcnkgPC0gZGJHZXRRdWVyeShwcm9qZWN0MTIsICJTRUxFQ1QgQ09VTlQoVkFFUlNfSUQpIGZyb20gdmFlcnM7IikKCiNzb21lIGJ1aWx0IGluIGNvbW1hbmRzCmRiTGlzdFRhYmxlcyhwcm9qZWN0MTIpIApgYGBg</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRGF0YSBBbmFseXNpcyBmb3IgdGhlIExpZmUgU2NpZW5jZXMgLSBHZXR0aW5nIFN0YXJ0ZWQiCm91dHB1dDogaHRtbF9ub3RlYm9vawotLS0KCkxldCdzIGJsYXN0IHRocm91Z2ggdGhlIGludHJvZHVjdGlvbiBhbmQgZ2V0dGluZyBzdGFydGVkIHNlZ21lbnQuIEkgaW1hZ2luZSBpdCdzIGEgZ29vZCB0aGluZyB0byBkbyB0aGVzZSBhbnl3YXkgc2luY2UgSSBvZnRlbiBmb3JnZXQgd2hhdCBJIGRpZCBsYXN0IHRpbWUuIAoKIyMgR2V0dGluZyBIZWxwCmBgYHtyfQo/aW5zdGFsbC5wYWNrYWdlcwpoZWxwKCJpbnN0YWxsLnBhY2thZ2VzIikKYGBgCgojIyBJbnN0YWxsaW5nIHBhY2thZ2VzCmBgYGB7cn0KaW5zdGFsbC5wYWNrYWdlcygicmFmYWxpYiIpCmluc3RhbGwucGFja2FnZXMoImRvd25sb2FkZXIiKQkJI3RoZSBkb3dubG9hZC5maWxlIGZ1bmN0aW9uCmluc3RhbGwucGFja2FnZXMoImRldnRvb2xzIikJCSNUbyBpbnN0YWxsIHBhY2thZ2VzIGZyb20gR2l0SHViCmBgYGAKCgoKCgoKCgoKCgoKIyMgSW1wb3J0aW5nIERhdGEgaW50byBSClRoZSBib29rIG1lbnRpb25zIHVzaW5nIENTViBmaWxlcyBhbmQgd2hhdG5vdC4gSSBzcGVudCBhIGdvb2QgZGVhbCBvZiB0aW1lIG1ha2luZyBhIHBvc3RncmVzIGRhdGFiYXNlIGFuZCB3ZSdyZSBnb25uYSB1c2UgdGhhdC4gCmBgYGB7cn0KI1RoZSByZXF1aXNpdGUgcGFja2FnZXMgYXJlOgppbnN0YWxsLnBhY2thZ2VzKCJSUG9zdGdyZVNRTCIsICJSUG9zdGdyZXMiKQpsaWJyYXJ5KERCSSkKbGlicmFyeShzcWxkZikKbGlicmFyeShSU1FMaXRlKQoKI1RoZSBzZXR1cCBmb3IgdmFyaWFibGVzIGZvciBhIHBvc3RncmVzIGNvbm5lY3Rpb24gbG9vayBsaWtlOgp1c3IgPC0gInJ1c2VyIgpwc3cgPC0geyJSYXNzV29yZCEifQpkcnYgPC0gUlBvc3RncmVzOjpQb3N0Z3JlcygpCmhzdCA8LSAibG9jYWxob3N0IgpwcnQgPC0gNTQzMgpkYm4gPC0gInByb2plY3QxMCIJCgojQ29ubmVjdGluZy9lc3RhYmxpc2hpbmcgYSBjb25uZWN0aW9uIHRvIHRoZSBEQiBsb29rcyBsaWtlCnByb2plY3QxMiA8LSBkYkNvbm5lY3QoZHJ2LCBkYm5hbWUgPSBkYm4sIGhvc3QgPSBoc3QsIHBvcnQgPSBwcnQsIHVzZXIgPSB1c3IsIHBhc3N3b3JkID0gcHN3KQoKI2lzc3VpbmcgYSBkYiBTUUwgcXVlcnJ5IGxvb2tzIGxpa2U6Cm51bWJlcm9mcm93c1F1ZXJ5IDwtIGRiR2V0UXVlcnkocHJvamVjdDEyLCAiU0VMRUNUIENPVU5UKFZBRVJTX0lEKSBmcm9tIHZhZXJzOyIpCgojc29tZSBidWlsdCBpbiBjb21tYW5kcwpkYkxpc3RUYWJsZXMocHJvamVjdDEyKSAKYGBgYAoKCgoKCgoKCgojIyBEb3dubG9hZCBkYXRhIGZyb20gd2l0aGluIFIKVGhlIGJvb2sgc3RvcmVzIG1hbnkgb2YgdGhlIGRhdGFzZXRzIHVzZWQgb24gR2l0SHViMjAuIFVzaW5nIHRoZSBkb3dubG9hZC5maWxlIGZ1bmN0aW9uIGluIHRoZSBkb3dubG9hZGVyIHBhY2thZ2UgdG8gZG93bmxvYWQgdGhlIGZpbGUgdG8gYSBzcGVjaWZpYyBsb2NhdGlvbiBhbmQgdGhlbiByZWFkIGl0IGluLiAKClRPRE8sIGltYWdpbmUgdHVybmluZyB0aGlzIGludG8gYSBmdW5jdGlvbiB0byBkb3dubG9hZCBkYXRhIGZpbGVzIGFuZCB0aGVuIGNodXJuIHRoZW0gaW50byB0aGUgREI/IEhvdyBjb29sIHdvdWxkIHRoYXQgYmUuCgpgYGBge3J9CmxpYnJhcnkoZG93bmxvYWRlcikgIyN1c2UgaW5zdGFsbC5wYWNrYWdlcyB0byBpbnN0YWxsCnVybCA8LSAiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2dlbm9taWNzY2xhc3MvZGFnZGF0YS9tYXN0ZXIvaW5zdC9leHRkXGF0YS9mZW1hbGVNaWNlV2VpZ2h0cy5jc3YiCmZpbGVuYW1lIDwtICJmZW1hbGVNaWNlV2VpZ2h0cy5jc3YiCmRvd25sb2FkKHVybCwgZGVzdGZpbGU9ZmlsZW5hbWUpCgojV2UgY2FuIHRoZW4gcmVhZCBpdCBpbiBsaWtlIHRoaXM6CmRhdCA8LSByZWFkLmNzdihmaWxlbmFtZSkKIApgYGBgCgoKCgoKCgoKSW5zdGFsbCBhIHBhY2thZ2UgZnJvbSBHaXRIdWIuIApgYGBge3J9Cmluc3RhbGwucGFja2FnZXMoImRldnRvb2xzIikJCSNUbyBpbnN0YWxsIHBhY2thZ2VzIGZyb20gR2l0SHViCmluc3RhbGxfZ2l0aHViKCJnZW5vbWljc2NsYXNzL2RhZ2RhdGEiKQpsaWJyYXJ5KGRldnRvb2xzKQoKIyBPbmNlIHlvdSBpbnN0YWxsIHRoZSBwYWNrYWdlLCB0aGUgZmlsZSBpcyBvbiB5b3VyIGNvbXB1dGVyLiBIb3dldmVyLCBmaW5kaW5nIGl0IHJlcXVpcmVzIGFkdmFuY2VkIGtub3dsZWRnZToKCmRpciA8LSBzeXN0ZW0uZmlsZShwYWNrYWdlPSJkYWdkYXRhIikgI2V4dHJhY3RzIHRoZSBsb2NhdGlvbiBvZiBhIHBhY2thZ2UKbGlzdC5maWxlcyhkaXIpCgpsaXN0LmZpbGVzKGZpbGUucGF0aChkaXIsImV4dGRhdGEiKSkgI2xpc3QgZmlsZXMgaW4gYSBkaXJlY3RvcnkKCiNyZWFkIGluIHRoZSBmaWxlCmZpbGVuYW1lIDwtIGZpbGUucGF0aChkaXIsImV4dGRhdGEvZmVtYWxlTWljZVdlaWdodHMuY3N2IikKZGF0IDwtIHJlYWQuY3N2KGZpbGVuYW1lKSAKYGBgYAoKCgoKCgoKCgoKCgoKIyMgTm90ZXMgCkFyZSB0aGVyZSBhbnkgd29ydGh5IG5vdGVzIG9yIGFueXRoaW5nIHdlIHdhbnQgdG8ga2VlcCBhcm91bmQ/CmBgYGB7cn0KCmBgYGA=</div>
 
 
 

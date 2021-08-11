@@ -14,8 +14,20 @@ help("install.packages")
 ## Installing packages
 ````{r}
 install.packages("rafalib")
-install.packages("downloader")
+install.packages("downloader")		#the download.file function
+install.packages("devtools")		#To install packages from GitHub
 ````
+
+
+
+
+
+
+
+
+
+
+
 
 ## Importing Data into R
 The book mentions using CSV files and whatnot. I spent a good deal of time making a postgres database and we're gonna use that. 
@@ -42,4 +54,71 @@ numberofrowsQuery <- dbGetQuery(project12, "SELECT COUNT(VAERS_ID) from vaers;")
 
 #some built in commands
 dbListTables(project12) 
+````
+
+
+
+
+
+
+
+
+
+## Download data from within R
+The book stores many of the datasets used on GitHub20. Using the download.file function in the downloader package to download the file to a specific location and then read it in. 
+
+TODO, imagine turning this into a function to download data files and then churn them into the DB? How cool would that be.
+
+````{r}
+library(downloader) ##use install.packages to install
+url <- "https://raw.githubusercontent.com/genomicsclass/dagdata/master/inst/extd\ata/femaleMiceWeights.csv"
+filename <- "femaleMiceWeights.csv"
+download(url, destfile=filename)
+
+#We can then read it in like this:
+dat <- read.csv(filename)
+ 
+````
+
+
+
+
+
+
+
+
+Install a package from GitHub. 
+````{r}
+install.packages("devtools")		#To install packages from GitHub
+install_github("genomicsclass/dagdata")
+library(devtools)
+
+# Once you install the package, the file is on your computer. However, finding it requires advanced knowledge:
+
+dir <- system.file(package="dagdata") #extracts the location of a package
+list.files(dir)
+
+list.files(file.path(dir,"extdata")) #list files in a directory
+
+#read in the file
+filename <- file.path(dir,"extdata/femaleMiceWeights.csv")
+dat <- read.csv(filename) 
+````
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Notes 
+Are there any worthy notes or anything we want to keep around?
+````{r}
+
 ````
