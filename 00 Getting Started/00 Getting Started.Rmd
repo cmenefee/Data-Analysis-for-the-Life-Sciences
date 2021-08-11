@@ -20,7 +20,7 @@ install.packages("downloader")
 ## Importing Data into R
 The book mentions using CSV files and whatnot. I spent a good deal of time making a postgres database and we're gonna use that. 
 ````{r}
-#The requisit packages are:
+#The requisite packages are:
 install.packages("RPostgreSQL", "RPostgres")
 library(DBI)
 library(sqldf)
